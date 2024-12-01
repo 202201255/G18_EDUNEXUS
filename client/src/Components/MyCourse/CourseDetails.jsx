@@ -100,7 +100,7 @@ const CourseDetails = () => {
 
 	useEffect(() => {
 		fetchApiData(); // Ensure fetchApiData is called inside useEffect
-	}, []);
+	}, [lab]);
 
 	const [value, setValue] = useState(0);
 	const theme = useTheme();
@@ -116,7 +116,9 @@ const CourseDetails = () => {
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
 	};
-
+	useEffect(() => {
+		fetchApiData();
+	}, [isModalOpen]);
 	return (
 		<div style={{ marginTop: "20px" }}>
 			<Grid container>
