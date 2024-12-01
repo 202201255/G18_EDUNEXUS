@@ -77,7 +77,7 @@ const lab_submission = async (req, res) => {
 				message: "Lab submitted successfully",
 			});
 		} catch (error) {
-			await pool.query("ROLLBACK");
+			// await pool.query("ROLLBACK");
 			if (error.code === "23503" || error.code === "23505") {
 				res.status(400).json({ error: "Error due to wrong input!!" });
 			} else {

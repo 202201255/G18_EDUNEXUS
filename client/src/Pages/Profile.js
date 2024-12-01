@@ -9,12 +9,11 @@ import axios from 'axios';
 import { any } from 'prop-types';
 import { toast, ToastContainer } from "react-toastify";
 
-const ENDPOINT = process.env.REACT_APP_BACKEND_URL||'http://localhost:3001';
 
-
+const ENDPOINT = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
 const Profile = () => {
     const SID = JSON.parse(localStorage.getItem("userInfo")).SID;
-    const Api = `${ENDPOINT}/api/user/viewprofile?SID=${SID}`;
+    const Api = `http://localhost:3001/api/user/viewprofile?SID=${SID}`;
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
         studentId: "",
@@ -42,11 +41,10 @@ const Profile = () => {
         console.log(SID);
         console.log(role);
         try {
-            const response = await axios.get(Api, {
-                SID: SID,
-                role: role
-            });
+
+            const response = await axios.get(Api);
             const data = response.data;
+            console.log(data);
             setFormData({
                 studentId: SID,
                 Studentname: data.Sname || "",
@@ -94,7 +92,7 @@ const Profile = () => {
         console.log("Form data:", formData);
 
         try {
-            const response = await axios.post(`${ENDPOINT}/api/user/editprofile`, {
+            const response = await axios.post(`http://localhost:3001/api/user/editprofile`, {
                 studentId: formData.studentId,
                 Sname: formData.Studentname,
                 Fname: formData.fatherName,
@@ -112,13 +110,16 @@ const Profile = () => {
 
             if (response.data.success) {
                 toast.success("Profile updated successfully!", response.data);
-              } else {
-                toast.error("Profile update failed!");
-              }
+            }
+            else {
+            toast.error("Profile update failed!");
+            }
             } catch (error) {
               console.error("Error during POST request:", error);
               toast.error("An error occurred while updating the profile.");
             }
+
+            
     };
 
     return (
@@ -139,6 +140,7 @@ const Profile = () => {
                             value={formData.studentId}
                             fullWidth
                             disabled
+                            data-testid="student-id"
                         />
                     </div>
 
@@ -149,6 +151,7 @@ const Profile = () => {
                             value={formData.Studentname}
                             onChange={handleChange}
                             fullWidth
+                            data-testid="student-name"
                         />
                     </div>
 
@@ -177,21 +180,6 @@ const Profile = () => {
                     <div id="form-row">
                         <div id="form-group">
                         <TextField
-                            label="bdate"
-                            type="date"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            variant="standard" 
-                            name="bdate"
-                            value={formData.dob}
-                            fullWidth
-                            disabled
-                        />
-
-                        </div>
-                        <div id="form-group">
-                        <TextField
                             label="nationality"
                             variant="standard"
                             name="nationality"
@@ -209,45 +197,34 @@ const Profile = () => {
                             <input 
                                 type="radio" 
                                 name="gender" 
-                                value="female" 
+                                value="Female" 
                                 // onChange={handleChange} 
                                 checked={formData.gender === 'Female'} 
-                                // disabled 
-                            /> 
-                            female
-                        </label>
-                        <label>
-                            <input 
-                                type="radio" 
-                                name="gender" 
-                                value="male" 
-                                onChange={handleChange} 
-                                checked={formData.gender === 'male'} 
-                                // disabled 
-                            /> 
-                            male
-                        </label>
-                        <label>
-                            <input 
-                                type="radio" 
-                                name="gender" 
-                                value="other" 
-                                onChange={handleChange} 
-                                checked={formData.gender === 'other'} 
                                 disabled 
                             /> 
-                            other
+                            Female
                         </label>
                         <label>
                             <input 
                                 type="radio" 
                                 name="gender" 
-                                value="prefer-not" 
+                                value="Male" 
                                 onChange={handleChange} 
-                                checked={formData.gender === 'prefer-not'} 
+                                checked={formData.gender === 'Male'} 
                                 disabled 
                             /> 
-                            prefer_not_to_say
+                            Male
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                name="gender" 
+                                value="Other" 
+                                onChange={handleChange} 
+                                checked={formData.gender === 'Other'} 
+                                disabled 
+                            /> 
+                            Other
                         </label>
                     </div>
                 </div>
@@ -267,7 +244,7 @@ const Profile = () => {
                             onChange={handleChange}
                             fullWidth/>
                         </div>
-                        <div className="form-group">
+                        <div id="form-group">
                         <TextField
                             label="instituteEmail"
                             variant="standard"
@@ -301,7 +278,7 @@ const Profile = () => {
                             onChange={handleChange}
                             fullWidth/>
                     </div>
-                    <div className="form-group">
+                    <div id="form-group">
                     <TextField
                         label="addr_city"
                         variant="standard"
@@ -340,7 +317,7 @@ const Profile = () => {
                     <legend id="enrollment">Enrollment Details</legend>
                     <div id="form-row">
                        
-                    <div className="form-group">
+                    <div id="form-group">
                             <TextField
                                 label="Program of Study"
                                 variant="standard"

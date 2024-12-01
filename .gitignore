@@ -6,8 +6,6 @@
 /client/.pnp
 /client/.pnp.js
 /client/# testing
-/client//coverage
-
 /client/# production
 /client//build
 
@@ -22,11 +20,13 @@
 /client/yarn-debug.log*
 /client/yarn-error.log*
 /client/.env
-
+/client/coverage
+/client/Test
 # Server
 /server/node_modules
 
 # Environment Variables
 /server/.env
-
-/Unit_Testing
+/server/reports
+/server/specs
+/server/.nyc_output
