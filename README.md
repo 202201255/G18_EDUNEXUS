@@ -76,3 +76,14 @@ Ensure you have Node.js and npm installed on your machine. Then, install the dep
 6. Open in Browser
   Frontend: Navigate to http://localhost:3000 in your browser to view the application.
   Backend: The backend server will typically run on http://localhost:3001 or another specified port.
+
+
+INSERT INTO Login (SID, Password,role) VALUES
+  ('S001', crypt('password123', gen_salt('bf')),'student'),
+  ('S002', crypt('pass456', gen_salt('bf')),'student'),
+  ('S003', crypt('mysecurepass', gen_salt('bf')),'student'),
+   ('S004', crypt('adminpass', gen_salt('bf')),'student'),
+   ('P001', crypt('abc123', gen_salt('bf')),'professor'),
+   ('P002', crypt('xyz123', gen_salt('bf')),'professor'),
+   ('P003', crypt('temp456', gen_salt('bf')),'professor'),
+   ('P004', crypt('pqr789', gen_salt('bf')),'professor');
